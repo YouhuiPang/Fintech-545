@@ -1,12 +1,11 @@
 import pandas as pd
+import numpy as np
 
-data = pd.read_csv("test7_1.csv")["x1"].dropna().values
+x = pd.read_csv("test7_1.csv")["x1"].dropna().to_numpy(float)
+n = x.size
 
-n = len(data)
-mu = sum(data) / n
-
-squared_diff = [(x - mu) ** 2 for x in data]
-sigma = (sum(squared_diff) / (n - 1)) ** 0.5
+mu = float(np.sum(x) / n)
+sigma = float(np.sqrt(np.sum((x - mu)**2) / (n - 1)))
 
 out = pd.DataFrame({"mu": [mu], "sigma": [sigma]})
 out.to_csv("out7_1.csv", index=False)
